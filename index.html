@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<!--
+- Copyright (c) 2012 Research In Motion Limited.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+-->
+
+<html>
+	<head>
+		<title>Freewill.js</title>
+		<style type="text/css">
+			body, #container {
+				position: fixed;
+				left: 0px; right: 0px;
+				top: 0px; bottom: 0px;
+				border: 0px; margin: 0px; padding: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="freewill"></div>
+			<canvas id="myCanvas"></canvas>
+		</div>
+
+		<script type="text/javascript" src="Freewill.js"></script>
+		<script type="text/javascript">
+			/*global Freewill */
+			window.addEventListener('DOMContentLoaded', function () {
+				/* Purely for reference, drawing a rectangle to show the trigger area of the Yellow Button and Top-Horizontal Joystick. */
+				var canvas = document.querySelector('#myCanvas');
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				var context = canvas.getContext('2d');
+				context.fillStyle = '#747474';
+				context.fillRect(canvas.width - 200.0, canvas.height - 200.0, 200.0, 200.0); /* Yellow Button. */
+				context.fillRect(90.0, 90.0, canvas.width - 276.0, 76.0);					 /* Top-Horizontal Joystick. */
+
+				var freewill = new Freewill({
+					'container': document.querySelector('#freewill')
+				});
+
+				/* Red Button. */
+				freewill.buttonR = freewill.addButton({
+					image: './images/buttonred.png',
+					fixed: true,
+					pos: [canvas.width - 96.0, 10.0],
+					opacLow: 0.5
+				});
+
+				/* Green Button. */
+				freewill.buttonG = freewill.addButton({
+					image: './images/buttongreen.png',
+					fixed: true,
+					pos: [canvas.width - 96.0, 106.0],
+					opacLow: 0.5
+				});
+
+				/* Green Button. */
+				freewill.buttonB = freewill.addButton({
+					image: './images/buttonblue.png',
+					fixed: true,
+					pos: [canvas.width - 96.0, 202.0],
+					opacLow: 0.5
+				});
+
+				/* Yellow Button. */
+				freewill.buttonY = freewill.addButton({
+					image: './images/buttonyellow.png',
+					fixed: true,
+					pos: [canvas.width - 96.0, canvas.height - 96.0],
+					trigger: [canvas.width - 200.0, canvas.height - 200.0, 200.0, 200.0],
+					opacLow: 0.0,
+					opacHigh: 0.5
+				});
+
+				/* Bottom-Left Joystick. */
+				freewill.joystick1 = freewill.addJoystick({
+					imageBase: './images/dpad.png',
+					imagePad: './images/pad.png',
+					fixed: true,
+					pos: [10.0, canvas.height - 170.0]
+				});
+
+				/* Top-Horizontal Joystick. */
+				freewill.joystick2 = freewill.addJoystick({
+					imageBase: './images/dpad.png',
+					imagePad: './images/pad.png',
+					fixed: false,
+					pos: [10.0, 10.0],
+					trigger: [90.0, 90.0, canvas.width - 276.0, 76.0],
+					opacLow: 0.0
+				});
+			}, false);
+		</script>
+	</body>
+</html>
